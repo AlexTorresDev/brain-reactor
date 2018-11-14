@@ -92,7 +92,7 @@ public class BackgroundFragment extends Fragment implements Level {
         int message = (Integer.parseInt(player.getBackground().toString()) == color) ? R.string.success : R.string.wrong;
         int s = Integer.parseInt(score.getText().toString());
 
-        //new Animations(getContext()).startAnimationTo(player, background, (int) event.getRawX(), (int) event.getRawY());
+        new Animations(getContext()).startAnimationTo(player, background, (int) event.getRawX(), (int) event.getRawY());
         text.setText(message);
 
         if (Integer.parseInt(player.getBackground().toString()) == color) {

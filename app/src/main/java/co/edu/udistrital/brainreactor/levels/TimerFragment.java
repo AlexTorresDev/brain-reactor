@@ -71,7 +71,7 @@ public class TimerFragment extends Fragment implements Level {
         int message = (seconds == 0) ? R.string.success : R.string.wrong;
         int s = Integer.parseInt(score.getText().toString());
 
-        //new Animations(getContext()).startAnimationTo(player, background, (int) event.getRawX(), (int) event.getRawY());
+        new Animations(getContext()).startAnimationTo(player, background, (int) event.getRawX(), (int) event.getRawY());
         text.setText(message);
 
         if (seconds == 0) {
