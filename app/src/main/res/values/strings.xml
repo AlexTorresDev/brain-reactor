@@ -36,9 +36,7 @@
         <item>RED</item>
         <item>ORANGE</item>
         <item>PURPLE</item>
-        <item>BROWN</item>
         <item>YELLOW</item>
-        <item>WHITE</item>
     </string-array>
     <string-array name="colors">
         <item>#2196F3</item>
@@ -46,8 +44,6 @@
         <item>#F44336</item>
         <item>#FF9800</item>
         <item>#9C27B0</item>
-        <item>#795548</item>
         <item>#FFEB3B</item>
-        <item>#FFFFFF</item>
     </string-array>
 </resources>
