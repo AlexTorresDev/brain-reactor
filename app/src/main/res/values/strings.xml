@@ -1,0 +1,53 @@
+<resources>
+    <!-- Main Activity -->
+    <string name="app_name">BrainReactor</string>
+    <string name="created_by"><![CDATA[Created by Nicolas & Alex]]></string>
+    <string name="play_game">Play Game</string>
+
+    <string name="title_activity_result">Results</string>
+
+    <string name="success">Success</string>
+    <string name="wrong">Wrong</string>
+
+    <!-- Levels messages -->
+    <string name="operation_message">Is this mathematical operation correct?</string>
+    <string name="color_message">Touch this panel when the name and color match</string>
+    <string name="timer_message">Touch this panel when the timer reaches zero</string>
+    <string name="images_message">Touch this panel when there are 3 identical images</string>
+    <string name="background_message">Touch this panel when the color of background is %s</string>
+
+    <string name="you_are_win">You are the WIN!</string>
+    <string name="you_are_loser">You are the LOSER!</string>
+    <string name="tie">TIE!</string>
+
+    <string name="score">Your score: %d</string>
+    <string name="player_1">Player 1</string>
+    <string name="player_2">Player 2</string>
+    <string name="initial_score" translatable="false">0</string>
+
+    <string name="exit_title">Are you sure you want to leave the game?</string>
+    <string name="exit_message">If you leave the game you will lose all the progress</string>
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
+
+    <string-array name="colors_name">
+        <item>BLUE</item>
+        <item>GREEN</item>
+        <item>RED</item>
+        <item>ORANGE</item>
+        <item>PURPLE</item>
+        <item>BROWN</item>
+        <item>YELLOW</item>
+        <item>WHITE</item>
+    </string-array>
+    <string-array name="colors">
+        <item>#2196F3</item>
+        <item>#4CAF50</item>
+        <item>#F44336</item>
+        <item>#FF9800</item>
+        <item>#9C27B0</item>
+        <item>#795548</item>
+        <item>#FFEB3B</item>
+        <item>#FFFFFF</item>
+    </string-array>
+</resources>

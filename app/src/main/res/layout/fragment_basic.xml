@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <co.edu.udistrital.brainreactor.view.RectangularLayout
+            android:id="@+id/rectangular1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/colorContainer"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:rotation="180">
+
+            <TextView
+                android:id="@+id/game1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+        </co.edu.udistrital.brainreactor.view.RectangularLayout>
+
+        <View
+            android:id="@+id/separator_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPanel" />
+
+        <co.edu.udistrital.brainreactor.view.RectangularLayout
+            android:id="@+id/rectangular2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/colorContainer"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/game2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+        </co.edu.udistrital.brainreactor.view.RectangularLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

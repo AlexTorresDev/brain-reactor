@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Main Activity -->
+    <string name="app_name">BrainReactor</string>
+    <string name="created_by"><![CDATA[Creado por Nicolas & Alex]]></string>
+    <string name="play_game">Jugar</string>
+
+    <string name="title_activity_result">Resultados</string>
+
+    <string name="success">Hecho</string>
+    <string name="wrong">Error</string>
+
+    <!-- Levels messages -->
+    <string name="operation_message">¿Es correcta esta operación matemática?</string>
+    <string name="color_message">Toca este panel cuando el nombre y el color coincidan</string>
+    <string name="timer_message">Toca este panel cuando el temporizador llegue a cero.</string>
+    <string name="images_message">Toca este panel cuando hayan 3 imágenes iguales</string>
+    <string name="background_message">Toca este panel cuando el color del fondo sea %s</string>
+
+    <string name="you_are_win">¡Eres el GANADOR!</string>
+    <string name="you_are_loser">¡Eres el PERDEDOR!</string>
+    <string name="tie">¡EMPATE!</string>
+
+    <string name="score">Tu puntajes: %d</string>
+    <string name="player_1">Jugador 1</string>
+    <string name="player_2">Jugador 2</string>
+
+    <string name="exit_title">¿Estás seguro que deseas abandonar la partida?</string>
+    <string name="exit_message">Si abandonas la partida perderás todo el progreso</string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+
+    <string-array name="colors_name">
+        <item>AZUL</item>
+        <item>VERDE</item>
+        <item>ROJO</item>
+        <item>NARANJA</item>
+        <item>PURPURA</item>
+        <item>CAFE</item>
+        <item>AMARILLO</item>
+        <item>BLANCO</item>
+    </string-array>
+</resources>
