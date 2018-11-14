@@ -50,7 +50,8 @@ public class BackgroundFragment extends Fragment implements Level {
         rectangular2 = v.findViewById(R.id.rectangular2);
 
         View separator = v.findViewById(R.id.separator_fragment);
-        separator.setVisibility(View.INVISIBLE);
+        separator.setVisibility(View.GONE);
+        separator.setLayoutParams(new LayoutParams(0, 0));
 
         GameActivity.millis = 5000;
 
@@ -73,14 +74,16 @@ public class BackgroundFragment extends Fragment implements Level {
             public void run() {
                 rectangular1.setBackgroundColor(Color.parseColor(colors.COLORS.get(color).getColor()));
                 rectangular2.setBackgroundColor(Color.parseColor(colors.COLORS.get(color).getColor()));
+                GameActivity.thread.pause();
             }
-        }, (long) new Random().nextInt(3000) + 1000);
+        }, (long) new Random().nextInt(4000) + 1000);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 rectangular1.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.colorPanel));
                 rectangular2.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.colorPanel));
+                GameActivity.thread.resume();
             }
         }, (long) new Random().nextInt(1000));
     }
