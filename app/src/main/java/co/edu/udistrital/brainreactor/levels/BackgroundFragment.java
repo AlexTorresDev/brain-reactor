@@ -29,7 +29,7 @@ public class BackgroundFragment extends Fragment implements Level {
 
     private Colors colors;
     private RectangularLayout rectangular1, rectangular2;
-    private int color, localScore;
+    private int mColor, localScore;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,16 +64,17 @@ public class BackgroundFragment extends Fragment implements Level {
 
     @Override
     public void setView(TextView p1, TextView p2) {
-        color = new Random().nextInt(colors.COLORS.size());
+        int color_pos = new Random().nextInt(colors.COLORS.size());
+        mColor = Color.parseColor(colors.COLORS.get(color_pos).getColor());
         
-        p1.setText(getResources().getString(R.string.background_message, colors.COLORS.get(color).getName()));
-        p2.setText(getResources().getString(R.string.background_message, colors.COLORS.get(color).getName()));
+        p1.setText(getResources().getString(R.string.background_message, colors.COLORS.get(color_pos).getName()));
+        p2.setText(getResources().getString(R.string.background_message, colors.COLORS.get(color_pos).getName()));
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                rectangular1.setBackgroundColor(Color.parseColor(colors.COLORS.get(color).getColor()));
-                rectangular2.setBackgroundColor(Color.parseColor(colors.COLORS.get(color).getColor()));
+                rectangular1.setBackgroundColor(mColor);
+                rectangular2.setBackgroundColor(mColor);
                 GameActivity.thread.pause();
             }
         }, (long) new Random().nextInt(4000) + 1000);
@@ -90,15 +91,18 @@ public class BackgroundFragment extends Fragment implements Level {
 
     @Override
     public void touchPanel(CardView player, TextView text, TextView score, MotionEvent event) {
-        Log.e("Hola", rectangular1.getBackground().toString());
-        int background = (Integer.parseInt(player.getBackground().toString()) == color) ? R.color.colorSuccess : R.color.colorWrong;
-        int message = (Integer.parseInt(player.getBackground().toString()) == color) ? R.string.success : R.string.wrong;
+        int color = ((ColorDrawable) rectangular1.getBackground()).getColor();
+        
+        Log.e("Hola", String.valueOf(color) + " - " + String.valueOf(mColor));
+        
+        int background = (color == mColor) ? R.color.colorSuccess : R.color.colorWrong;
+        int message = (color == mColor) ? R.string.success : R.string.wrong;
         int s = Integer.parseInt(score.getText().toString());
 
         new Animations(getContext()).startAnimationTo(player, background, (int) event.getRawX(), (int) event.getRawY());
         text.setText(message);
 
-        if (Integer.parseInt(player.getBackground().toString()) == color) {
+        if (color == mColor) {
             localScore++;
             s++;
         } else {
