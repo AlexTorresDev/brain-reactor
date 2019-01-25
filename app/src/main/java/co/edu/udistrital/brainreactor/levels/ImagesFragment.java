@@ -140,13 +140,13 @@ public class ImagesFragment extends Fragment implements Level {
                     cont++;
                 }
 
-                if (cont == 3) break;
+                if (cont == 2) break;
             }
 
-            if (cont == 3) break;
+            if (cont == 2) break;
         }
 
-        return cont == 3;
+        return cont == 2;
     }
 
     private void listImages() {
