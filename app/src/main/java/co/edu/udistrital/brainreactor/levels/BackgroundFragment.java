@@ -1,7 +1,7 @@
 package co.edu.udistrital.brainreactor.levels;
 
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.annotation.NonNull;
@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Objects;
@@ -51,7 +52,7 @@ public class BackgroundFragment extends Fragment implements Level {
 
         View separator = v.findViewById(R.id.separator_fragment);
         separator.setVisibility(View.GONE);
-        separator.setLayoutParams(new LayoutParams(0, 0));
+        separator.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
 
         GameActivity.millis = 5000;
 

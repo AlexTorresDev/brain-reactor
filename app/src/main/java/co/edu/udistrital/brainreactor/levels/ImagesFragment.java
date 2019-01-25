@@ -58,22 +58,22 @@ public class ImagesFragment extends Fragment implements Level {
     }
 
     private void setView() {
-        int container, pos;
+        if (mCont == 6) {
+            int container = new Random().nextInt(6);
+            int pos = new Random().nextInt(IMAGES.size());
+            imagesView[container].setImageResource(IMAGES.get(pos).getImage());
+            imagesView[container].setId(IMAGES.get(pos).getId());
+        }
 
         do {
-            container = new Random().nextInt(6);
-            pos = new Random().nextInt(IMAGES.size());
+            int container = new Random().nextInt(6);
+            int pos = new Random().nextInt(IMAGES.size());
             if (imagesView[container].getDrawable() == null) {
-                imagesView[container].setImageResource(IMAGES.get(pos).getId());
-                imagesView[container].setContentDescription("image_" + pos);
+                imagesView[container].setImageResource(IMAGES.get(pos).getImage());
+                imagesView[container].setId(IMAGES.get(pos).getId());
                 mCont++;
             }
         } while (!emptyImagesView());
-
-        if (mCont == 6) {
-            imagesView[container].setImageResource(IMAGES.get(pos).getId());
-            imagesView[container].setContentDescription("image_" + pos);
-        }
     }
 
     private boolean emptyImagesView() {
@@ -136,7 +136,7 @@ public class ImagesFragment extends Fragment implements Level {
 
         for (int i = 0; i < imagesView.length; i++) {
             for (int j = i + 1; j < imagesView.length - 1; j++) {
-                if (imagesView[i].getContentDescription().toString().equals(imagesView[j].getContentDescription().toString())) {
+                if (imagesView[i].getId() == imagesView[j].getId()) {
                     cont++;
                 }
 
@@ -150,26 +150,29 @@ public class ImagesFragment extends Fragment implements Level {
     }
 
     private void listImages() {
-        IMAGES.add(new Image(R.drawable.image_1));
-        IMAGES.add(new Image(R.drawable.image_2));
-        IMAGES.add(new Image(R.drawable.image_3));
-        IMAGES.add(new Image(R.drawable.image_4));
-        IMAGES.add(new Image(R.drawable.image_5));
+        IMAGES.add(new Image(R.drawable.image_1, 1));
+        IMAGES.add(new Image(R.drawable.image_2, 2));
+        IMAGES.add(new Image(R.drawable.image_3, 3));
+        IMAGES.add(new Image(R.drawable.image_4, 4));
+        IMAGES.add(new Image(R.drawable.image_5, 5));
     }
 
     class Image {
-        int id;
+        private int image;
+        private int id;
 
-        Image(int id) {
+        Image(int image, int id) {
+            this.image = image;
             this.id = id;
+        }
+
+        public int getImage() {
+            return this.image;
         }
 
         public int getId() {
-            return id;
+            return this.id;
         }
 
-        public void setId(int id) {
-            this.id = id;
-        }
     }
 }
