@@ -1,15 +1,11 @@
 <resources>
-    <!-- Main Activity -->
     <string name="app_name">BrainReactor</string>
     <string name="created_by"><![CDATA[Created by Nicolas & Alex]]></string>
     <string name="play_game">Play Game</string>
 
-    <string name="title_activity_result">Results</string>
-
     <string name="success">Success</string>
     <string name="wrong">Wrong</string>
 
-    <!-- Levels messages -->
     <string name="operation_message">Is this mathematical operation correct?</string>
     <string name="color_message">Touch this panel when the name and color match</string>
     <string name="timer_message">Touch this panel when the timer reaches zero</string>
