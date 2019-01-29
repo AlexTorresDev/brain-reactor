@@ -23,7 +23,7 @@ public class CapitalsFragment extends Fragment implements Level, Runnable {
 
     private List<Capital> CAPITALS;
     private TextView game1, game2;
-    private int num1, num2, localScore;
+    private int num1, num2, oldNum1, oldNum2, localScore;
     private Thread thread;
 
     @Override
@@ -43,6 +43,9 @@ public class CapitalsFragment extends Fragment implements Level, Runnable {
 
         game1 = v.findViewById(R.id.game1);
         game2 = v.findViewById(R.id.game2);
+
+        oldNum1 = -1;
+        oldNum2 = -1;
 
         thread = new Thread(this);
     }
@@ -72,8 +75,17 @@ public class CapitalsFragment extends Fragment implements Level, Runnable {
                 Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        num1 = new Random().nextInt(CAPITALS.size());
-                        num2 = new Random().nextInt(CAPITALS.size());
+                        do {
+                            num1 = new Random().nextInt(COLORS.size());
+                        } while(num1 == oldNum1);
+
+                        oldNum1 = num1;
+
+                        do {
+                            num2 = new Random().nextInt(COLORS.size());
+                        } while(num2 == oldNum2);
+
+                        oldNum2 = num2;
 
                         game1.setText(getResources().getString(R.string.capital_text, CAPITALS.get(num1).getCountry(), CAPITALS.get(num2).getCapital()));
                         game2.setText(getResources().getString(R.string.capital_text, CAPITALS.get(num1).getCountry(), CAPITALS.get(num2).getCapital()));

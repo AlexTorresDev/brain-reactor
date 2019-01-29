@@ -13,9 +13,13 @@ public class AboutActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        MaterialCardView licenses = findViewById(R.id.licenses);
-
-        licenses.setOnClickListener(this);
+        findViewById(R.id.licenses).setOnClickListener(this);
+        findViewById(R.id.github1).setOnClickListener(this);
+        findViewById(R.id.fb1).setOnClickListener(this);
+        findViewById(R.id.tw1).setOnClickListener(this);
+        findViewById(R.id.github2).setOnClickListener(this);
+        findViewById(R.id.fb2).setOnClickListener(this);
+        findViewById(R.id.tw2).setOnClickListener(this);
     }
 
     @Override
