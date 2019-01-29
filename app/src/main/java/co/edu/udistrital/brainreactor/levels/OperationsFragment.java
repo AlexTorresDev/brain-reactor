@@ -1,11 +1,7 @@
 package co.edu.udistrital.brainreactor.levels;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.cardview.widget.CardView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -18,17 +14,21 @@ import java.util.Random;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import co.edu.udistrital.brainreactor.R;
-import co.edu.udistrital.brainreactor.animation.Animations;
+import co.edu.udistrital.brainreactor.Thread;
 import co.edu.udistrital.brainreactor.activities.GameActivity;
 
-public class OperationsFragment extends Fragment implements Level {
+public class OperationsFragment extends Fragment implements Level, Runnable {
 
     private List<Operation> OPERATIONS = new ArrayList<>();
     private TextView game1, game2;
-
     private int result, localScore;
     private String operation, sign;
+    private Thread thread;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,32 +46,61 @@ public class OperationsFragment extends Fragment implements Level {
         game1 = v.findViewById(R.id.game1);
         game2 = v.findViewById(R.id.game2);
 
-        GameActivity.millis = 4000;
-        if(GameActivity.thread.isStopped()) {
-            GameActivity.thread.start();
-        } else {
-            GameActivity.thread.resume();
-        }
-    }
-
-    private void setView() {
-        int randomSign = new Random().nextInt(3);
-
-        operation = OPERATIONS.get(new Random().nextInt(OPERATIONS.size())).getOperation();
-        sign = (randomSign == 1) ? " = " : (randomSign == 2) ? " < " : " > ";
-        result = OPERATIONS.get(new Random().nextInt(OPERATIONS.size())).getResult();
-
-        game1.setText(String.valueOf(operation + sign + result));
-        game2.setText(String.valueOf(operation + sign + result));
+        thread = new Thread(this);
     }
 
     @Override
-    public void touchPanel(CardView player, TextView text, TextView score, MotionEvent event) {
+    public void onPause() {
+        thread.stop();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        thread.start();
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        thread.stop();
+        super.onDestroy();
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (!thread.isStopped()) {
+                Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int randomSign = new Random().nextInt(3);
+
+                        operation = OPERATIONS.get(new Random().nextInt(OPERATIONS.size())).getOperation();
+                        sign = (randomSign == 1) ? " = " : (randomSign == 2) ? " < " : " > ";
+                        result = OPERATIONS.get(new Random().nextInt(OPERATIONS.size())).getResult();
+
+                        game1.setText(String.valueOf(operation + sign + result));
+                        game2.setText(String.valueOf(operation + sign + result));
+                    }
+                });
+
+                if (!thread.isPaused()) {
+                    Thread.sleep(4000);
+                }
+            }
+        } catch (InterruptedException e) {
+            e.getStackTrace();
+        }
+    }
+
+    @Override
+    public void touchPanel(CardView player, TextView text, TextView score) {
         int background = (isCorrect()) ? R.color.colorSuccess : R.color.colorWrong;
         int message = (isCorrect()) ? R.string.success : R.string.wrong;
         int s = Integer.parseInt(score.getText().toString());
 
-        new Animations(getContext()).startAnimationTo(player, background, (int) event.getRawX(), (int) event.getRawY());
+        player.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), background));
         text.setText(message);
 
         if (isCorrect()) {
@@ -107,11 +136,6 @@ public class OperationsFragment extends Fragment implements Level {
                 return r > result;
         }
 
-    }
-
-    @Override
-    public void setView(TextView p1, TextView p2) {
-        setView();
     }
 
     @Override

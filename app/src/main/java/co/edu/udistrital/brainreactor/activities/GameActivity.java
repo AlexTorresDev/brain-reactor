@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -28,22 +27,18 @@ import java.util.Random;
 
 import co.edu.udistrital.brainreactor.levels.Level;
 import co.edu.udistrital.brainreactor.R;
-import co.edu.udistrital.brainreactor.Thread;
-import co.edu.udistrital.brainreactor.animation.Animations;
+import co.edu.udistrital.brainreactor.animation.Animation;
 import co.edu.udistrital.brainreactor.levels.*;
 import co.edu.udistrital.brainreactor.view.SquareLayout;
 
 @SuppressLint("ClickableViewAccessibility")
-public class GameActivity extends AppCompatActivity implements View.OnTouchListener, Runnable {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     private SquareLayout container;
     private MaterialCardView player1, player2;
     private TextView scorePlayer1, scorePlayer2, textPlayer1, textPlayer2;
     private List<Level> fragmentList;
     private int level;
-
-    public static Thread thread;
-    public static long millis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +64,6 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                 .setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        thread.stop();
                         startActivity(new Intent(GameActivity.this, MainActivity.class));
                     }
                 })
@@ -83,26 +77,21 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
     @Override
     protected void onPause() {
-        thread.pause();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
-        thread.resume();
         super.onResume();
     }
 
     @Override
     protected void onDestroy() {
-        thread.stop();
         super.onDestroy();
     }
 
     private void initComponents() {
         level = 0;
-
-        thread = new Thread(this);
 
         container = findViewById(R.id.container);
         player1 = findViewById(R.id.player1);
@@ -112,8 +101,8 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         scorePlayer1 = findViewById(R.id.scorePlayer1);
         scorePlayer2 = findViewById(R.id.scorePlayer2);
 
-        player1.setOnTouchListener(this);
-        player2.setOnTouchListener(this);
+        player1.setOnClickListener(this);
+        player2.setOnClickListener(this);
     }
 
     private void setFragmentList() {
@@ -132,8 +121,9 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                 .replace(R.id.container, (Fragment) getFragment())
                 .commit();
 
-        if (level > 0)
-            new Animations(this).startAnimation(container, R.color.colorPanel);
+        if (level > 0) {
+            new Animation(this).createAnimation(container, R.color.colorPanel).start();
+        }
 
         setDefaultAttr();
     }
@@ -143,74 +133,44 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     private void setDefaultAttr() {
-        player1.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPanel));
-        player2.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPanel));
-        textPlayer1.setText(getFragment().getMessage());
-        textPlayer2.setText(getFragment().getMessage());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                player1.setBackgroundColor(ContextCompat.getColor(GameActivity.this, R.color.colorPanel));
+                player2.setBackgroundColor(ContextCompat.getColor(GameActivity.this, R.color.colorPanel));
+                textPlayer1.setText(getFragment().getMessage());
+                textPlayer2.setText(getFragment().getMessage());
+            }
+        }, 1200);
     }
 
     public void nextLevel() {
         level++;
-        thread.stop();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (level < fragmentList.size()) {
-                    setFragment();
-                } else {
-                    Intent intent = new Intent(GameActivity.this, ResultActivity.class);
-                    intent.putExtra("score1", scorePlayer1.getText());
-                    intent.putExtra("score2", scorePlayer2.getText());
-                    startActivity(intent);
-                }
-            }
-        }, 800);
-    }
 
-    @Override
-    public void run() {
-        try {
-            while (!thread.isStopped()) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!thread.isPaused())
-                            getFragment().setView(textPlayer1, textPlayer2);
-                    }
-                });
-
-                if (!thread.isPaused()) {
-                    Thread.sleep(millis);
-                }
-            }
-        } catch (InterruptedException e) {
-            e.getStackTrace();
+        if (level < fragmentList.size()) {
+            setFragment();
+        } else {
+            Intent intent = new Intent(GameActivity.this, ResultActivity.class);
+            intent.putExtra("score1", scorePlayer1.getText());
+            intent.putExtra("score2", scorePlayer2.getText());
+            startActivity(intent);
         }
+
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        thread.pause();
-
+    public void onClick(View v) {
         switch (v.getId()) {
             case R.id.player1:
-                getFragment().touchPanel(player1, textPlayer1, scorePlayer1, event);
+                getFragment().touchPanel(player1, textPlayer1, scorePlayer1);
                 break;
             case R.id.player2:
-                getFragment().touchPanel(player2, textPlayer2, scorePlayer2, event);
+                getFragment().touchPanel(player2, textPlayer2, scorePlayer2);
                 break;
         }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setDefaultAttr();
-                thread.resume();
-            }
-        }, 1500);
-
-        return false;
+        setDefaultAttr();
     }
 
 }

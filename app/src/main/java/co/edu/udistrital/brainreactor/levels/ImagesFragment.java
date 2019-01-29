@@ -1,11 +1,7 @@
 package co.edu.udistrital.brainreactor.levels;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.cardview.widget.CardView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,15 +12,20 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import co.edu.udistrital.brainreactor.R;
-import co.edu.udistrital.brainreactor.animation.Animations;
+import co.edu.udistrital.brainreactor.Thread;
 import co.edu.udistrital.brainreactor.activities.GameActivity;
 
-public class ImagesFragment extends Fragment implements Level {
+public class ImagesFragment extends Fragment implements Level, Runnable {
 
     private List<Image> IMAGES = new ArrayList<>();
     private ImageView[] imagesView;
     private int mCont, localScore;
+    private Thread thread;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,31 +50,60 @@ public class ImagesFragment extends Fragment implements Level {
         imagesView[4] = v.findViewById(R.id.image5);
         imagesView[5] = v.findViewById(R.id.image6);
 
-        GameActivity.millis = 700;
-        if(GameActivity.thread.isStopped()) {
-            GameActivity.thread.start();
-        } else {
-            GameActivity.thread.resume();
-        }
+        thread = new Thread(this);
     }
 
-    private void setView() {
-        if (mCont == 6) {
-            int container = new Random().nextInt(6);
-            int pos = new Random().nextInt(IMAGES.size());
-            imagesView[container].setImageResource(IMAGES.get(pos).getImage());
-            imagesView[container].setId(IMAGES.get(pos).getId());
-        }
+    @Override
+    public void onPause() {
+        thread.stop();
+        super.onPause();
+    }
 
-        do {
-            int container = new Random().nextInt(6);
-            int pos = new Random().nextInt(IMAGES.size());
-            if (imagesView[container].getDrawable() == null) {
-                imagesView[container].setImageResource(IMAGES.get(pos).getImage());
-                imagesView[container].setId(IMAGES.get(pos).getId());
-                mCont++;
+    @Override
+    public void onResume() {
+        thread.start();
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        thread.stop();
+        super.onDestroy();
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (!thread.isStopped()) {
+                Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mCont == 6) {
+                            int container = new Random().nextInt(6);
+                            int pos = new Random().nextInt(IMAGES.size());
+                            imagesView[container].setImageResource(IMAGES.get(pos).getImage());
+                            imagesView[container].setId(IMAGES.get(pos).getId());
+                        }
+
+                        do {
+                            int container = new Random().nextInt(6);
+                            int pos = new Random().nextInt(IMAGES.size());
+                            if (imagesView[container].getDrawable() == null) {
+                                imagesView[container].setImageResource(IMAGES.get(pos).getImage());
+                                imagesView[container].setId(IMAGES.get(pos).getId());
+                                mCont++;
+                            }
+                        } while (!emptyImagesView());
+                    }
+                });
+
+                if (!thread.isPaused()) {
+                    Thread.sleep(700);
+                }
             }
-        } while (!emptyImagesView());
+        } catch (InterruptedException e) {
+            e.getStackTrace();
+        }
     }
 
     private boolean emptyImagesView() {
@@ -87,14 +117,14 @@ public class ImagesFragment extends Fragment implements Level {
     }
 
     @Override
-    public void touchPanel(CardView player, TextView text, TextView score, MotionEvent event) {
+    public void touchPanel(CardView player, TextView text, TextView score) {
         boolean isCorrect = compare();
 
         int background = (isCorrect) ? R.color.colorSuccess : R.color.colorWrong;
         int message = (isCorrect) ? R.string.success : R.string.wrong;
         int s = Integer.parseInt(score.getText().toString());
 
-        new Animations(getContext()).startAnimationTo(player, background, (int) event.getRawX(), (int) event.getRawY());
+        player.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), background));
         text.setText(message);
 
         if (isCorrect) {
@@ -119,11 +149,6 @@ public class ImagesFragment extends Fragment implements Level {
         for (ImageView image : imagesView) {
             image.setImageDrawable(null);
         }
-    }
-
-    @Override
-    public void setView(TextView p1, TextView p2) {
-        setView();
     }
 
     @Override

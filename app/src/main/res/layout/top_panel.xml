@@ -17,14 +17,14 @@
             android:id="@+id/textPlayer2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/bottom"
+            android:layout_below="@+id/top"
             android:gravity="center"
             android:padding="10dp"
             android:textSize="@dimen/size_text_bottom"
             android:textColor="@android:color/white" />
 
         <LinearLayout
-            android:id="@+id/bottom"
+            android:id="@+id/top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

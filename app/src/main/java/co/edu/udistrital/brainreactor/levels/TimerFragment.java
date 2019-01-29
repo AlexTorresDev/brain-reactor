@@ -2,10 +2,11 @@ package co.edu.udistrital.brainreactor.levels;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.cardview.widget.CardView;
+
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -14,13 +15,14 @@ import java.util.Objects;
 import java.util.Random;
 
 import co.edu.udistrital.brainreactor.R;
-import co.edu.udistrital.brainreactor.animation.Animations;
+import co.edu.udistrital.brainreactor.Thread;
 import co.edu.udistrital.brainreactor.activities.GameActivity;
 
-public class TimerFragment extends Fragment implements Level {
+public class TimerFragment extends Fragment implements Level, Runnable {
 
     private TextView game1, game2;
     private int seconds, randomTime, localScore;
+    private Thread thread;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,39 +41,69 @@ public class TimerFragment extends Fragment implements Level {
 
         setTime();
 
-        GameActivity.millis = 1000;
-        if(GameActivity.thread.isStopped()) {
-            GameActivity.thread.start();
-        } else {
-            GameActivity.thread.resume();
-        }
-    }
-
-    private void setView() {
-        if (seconds == -1) {
-            GameActivity.thread.pause();
-            setTime();
-            GameActivity.thread.resume();
-        }
-
-        if(seconds >= randomTime) {
-            game1.setText(String.format("%2s", seconds));
-            game2.setText(String.format("%2s", seconds));
-        } else {
-            game1.setText("?");
-            game2.setText("?");
-        }
-
-        seconds--;
+        thread = new Thread(this);
     }
 
     @Override
-    public void touchPanel(CardView player, TextView text, TextView score, MotionEvent event) {
+    public void onPause() {
+        thread.stop();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        thread.start();
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        thread.stop();
+        super.onDestroy();
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (!thread.isStopped()) {
+                Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!thread.isPaused())
+                            if (seconds < 0) {
+                                thread.pause();
+                                setTime();
+                                thread.resume();
+                            }
+
+                        if(seconds >= randomTime) {
+                            game1.setText(String.format("%2s", seconds));
+                            game2.setText(String.format("%2s", seconds));
+                        } else {
+                            game1.setText("?");
+                            game2.setText("?");
+                        }
+
+                        seconds--;
+                    }
+                });
+
+                if (!thread.isPaused()) {
+                    Thread.sleep(1000);
+                }
+            }
+        } catch (InterruptedException e) {
+            e.getStackTrace();
+        }
+    }
+
+    @Override
+    public void touchPanel(CardView player, TextView text, TextView score) {
         int background = (seconds == 0) ? R.color.colorSuccess : R.color.colorWrong;
         int message = (seconds == 0) ? R.string.success : R.string.wrong;
         int s = Integer.parseInt(score.getText().toString());
 
-        new Animations(getContext()).startAnimationTo(player, background, (int) event.getRawX(), (int) event.getRawY());
+        player.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), background));
         text.setText(message);
 
         if (seconds == 0) {
@@ -87,16 +119,11 @@ public class TimerFragment extends Fragment implements Level {
         if (localScore == 3) {
             ((GameActivity) Objects.requireNonNull(getActivity())).nextLevel();
         } else {
-            GameActivity.thread.pause();
+            thread.pause();
             setTime();
-            GameActivity.thread.resume();
+            thread.resume();
         }
 
-    }
-
-    @Override
-    public void setView(TextView p1, TextView p2) {
-        setView();
     }
 
     @Override

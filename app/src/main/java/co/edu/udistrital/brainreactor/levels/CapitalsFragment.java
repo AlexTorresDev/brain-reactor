@@ -1,12 +1,7 @@
 package co.edu.udistrital.brainreactor.levels;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.cardview.widget.CardView;
-
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -16,15 +11,20 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import co.edu.udistrital.brainreactor.R;
-import co.edu.udistrital.brainreactor.animation.Animations;
+import co.edu.udistrital.brainreactor.Thread;
 import co.edu.udistrital.brainreactor.activities.GameActivity;
 
-public class CapitalsFragment extends Fragment implements Level {
+public class CapitalsFragment extends Fragment implements Level, Runnable {
 
     private List<Capital> CAPITALS = new ArrayList<>();
     private TextView game1, game2;
     private int num1, num2, localScore;
+    private Thread thread;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,30 +42,58 @@ public class CapitalsFragment extends Fragment implements Level {
         game1 = v.findViewById(R.id.game1);
         game2 = v.findViewById(R.id.game2);
 
-        GameActivity.millis = 3000;
-        if(GameActivity.thread.isStopped()) {
-            GameActivity.thread.start();
-        } else {
-            GameActivity.thread.resume();
+        thread = new Thread(this);
+    }
+
+    @Override
+    public void onPause() {
+        thread.stop();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        thread.start();
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        thread.stop();
+        super.onDestroy();
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (!thread.isStopped()) {
+                Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        num1 = new Random().nextInt(CAPITALS.size());
+                        num2 = new Random().nextInt(CAPITALS.size());
+
+                        game1.setText(getResources().getString(R.string.capital_text, CAPITALS.get(num1).getCountry(), CAPITALS.get(num2).getCapital()));
+                        game2.setText(getResources().getString(R.string.capital_text, CAPITALS.get(num1).getCountry(), CAPITALS.get(num2).getCapital()));
+                    }
+                });
+
+                if (!thread.isPaused()) {
+                    Thread.sleep(3000);
+                }
+            }
+        } catch (InterruptedException e) {
+            e.getStackTrace();
         }
     }
 
     @Override
-    public void setView(TextView p1, TextView p2) {
-        num1 = new Random().nextInt(CAPITALS.size());
-        num2 = new Random().nextInt(CAPITALS.size());
-
-        game1.setText(getResources().getString(R.string.capital_text, CAPITALS.get(num1).getCountry(), CAPITALS.get(num2).getCapital()));
-        game2.setText(getResources().getString(R.string.capital_text, CAPITALS.get(num1).getCountry(), CAPITALS.get(num2).getCapital()));
-    }
-
-    @Override
-    public void touchPanel(CardView player, TextView text, TextView score, MotionEvent event) {
+    public void touchPanel(CardView player, TextView text, TextView score) {
         int background = (num1 == num2) ? R.color.colorSuccess : R.color.colorWrong;
         int message = (num1 == num2) ? R.string.success : R.string.wrong;
         int s = Integer.parseInt(score.getText().toString());
 
-        new Animations(getContext()).startAnimationTo(player, background, (int) event.getRawX(), (int) event.getRawY());
+        player.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), background));
         text.setText(message);
 
         if (num1 == num2) {
