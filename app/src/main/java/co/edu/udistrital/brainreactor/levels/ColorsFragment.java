@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -21,7 +23,7 @@ import co.edu.udistrital.brainreactor.activities.GameActivity;
 
 public class ColorsFragment extends Fragment implements Level, Runnable {
 
-    private Colors colors;
+    private List<Colors> COLORS;
     private TextView game1, game2;
     private int num1, num2, localScore;
     private Thread thread;
@@ -38,8 +40,8 @@ public class ColorsFragment extends Fragment implements Level, Runnable {
     private void initComponents(View v) {
         localScore = 0;
 
-        colors = new Colors(getContext());
-        colors.listColors();
+        COLORS = new ArrayList<>();
+        listColors();
 
         game1 = v.findViewById(R.id.game1);
         game2 = v.findViewById(R.id.game2);
@@ -72,14 +74,14 @@ public class ColorsFragment extends Fragment implements Level, Runnable {
                 Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        num1 = new Random().nextInt(colors.COLORS.size());
-                        num2 = new Random().nextInt(colors.COLORS.size());
+                        num1 = new Random().nextInt(COLORS.size());
+                        num2 = new Random().nextInt(COLORS.size());
 
-                        game1.setText(colors.COLORS.get(num1).getName());
-                        game1.setTextColor(Color.parseColor(colors.COLORS.get(num2).getColor()));
+                        game1.setText(COLORS.get(num1).getName());
+                        game1.setTextColor(Color.parseColor(COLORS.get(num2).getColor()));
 
-                        game2.setText(colors.COLORS.get(num1).getName());
-                        game2.setTextColor(Color.parseColor(colors.COLORS.get(num2).getColor()));
+                        game2.setText(COLORS.get(num1).getName());
+                        game2.setTextColor(Color.parseColor(COLORS.get(num2).getColor()));
                     }
                 });
 
@@ -119,5 +121,34 @@ public class ColorsFragment extends Fragment implements Level, Runnable {
     @Override
     public int getMessage() {
         return R.string.color_message;
+    }
+
+    private void listColors() {
+        int length = Objects.requireNonNull(getContext()).getResources().getStringArray(R.array.colors).length;
+
+        for (int i = 0; i < length; i++) {
+            COLORS.add(new Colors(
+                Objects.requireNonNull(getContext()).getResources().getStringArray(R.array.colors_name)[i],
+                Objects.requireNonNull(getContext()).getResources().getStringArray(R.array.colors)[i]
+            ));
+        }
+    }
+
+    class Colors {
+    
+        private String name, color;
+    
+        private Colors(String name, String color) {
+            this.name = name;
+            this.color = color;
+        }
+    
+        public String getName() {
+            return name;
+        }
+    
+        public String getColor() {
+            return color;
+        }
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AboutActivity">
+    tools:context=".activities.AboutActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -15,12 +15,14 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="@color/colorPanel"
+                app:cardCornerRadius="5dp"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -60,14 +62,18 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/licenses"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp">
+                android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="@color/colorPanel"
+                app:cardCornerRadius="5dp"
+                app:cardUseCompatPadding="true">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -76,14 +82,16 @@
                     android:text="Licenses"
                     android:textAppearance="@android:style/TextAppearance.Large" />
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="@color/colorPanel"
+                app:cardCornerRadius="5dp"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -103,7 +111,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Creador" />
+                        android:text="Creator" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -111,25 +119,28 @@
                         android:layout_marginTop="10dp">
 
                         <Button
+                            android:id="@+id/github1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@android:color/transparent"
+                            android:background="@null"
                             android:text="Github"
                             android:textColor="@color/colorAccent" />
 
                         <Button
+                            android:id="@+id/fb1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
-                            android:backgroundTint="@android:color/transparent"
+                            android:background="@null"
                             android:text="Facebook"
                             android:textColor="@color/colorAccent" />
 
                         <Button
+                            android:id="@+id/tw1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@android:color/transparent"
+                            android:background="@null"
                             android:text="Twitter"
                             android:textColor="@color/colorAccent" />
 
@@ -137,14 +148,16 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="@color/colorPanel"
+                app:cardCornerRadius="5dp"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -164,7 +177,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Creador" />
+                        android:text="Creator" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -172,25 +185,28 @@
                         android:layout_marginTop="10dp">
 
                         <Button
+                            android:id="@+id/github2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@android:color/transparent"
+                            android:background="@null"
                             android:text="Github"
                             android:textColor="@color/colorAccent" />
 
                         <Button
+                            android:id="@+id/fb2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
-                            android:backgroundTint="@android:color/transparent"
+                            android:background="@null"
                             android:text="Facebook"
                             android:textColor="@color/colorAccent" />
 
                         <Button
+                            android:id="@+id/tw2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@android:color/transparent"
+                            android:background="@null"
                             android:text="Twitter"
                             android:textColor="@color/colorAccent" />
 
@@ -198,7 +214,7 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 

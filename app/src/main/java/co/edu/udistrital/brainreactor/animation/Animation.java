@@ -26,6 +26,7 @@ public class Animation {
         viewRoot.setBackgroundColor(ContextCompat.getColor(context, color));
         animator.setDuration(500);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        
         return animator;
     }
 

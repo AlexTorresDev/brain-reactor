@@ -9,7 +9,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import co.edu.udistrital.brainreactor.AboutActivity;
 import co.edu.udistrital.brainreactor.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {

@@ -21,7 +21,7 @@ import co.edu.udistrital.brainreactor.activities.GameActivity;
 
 public class CapitalsFragment extends Fragment implements Level, Runnable {
 
-    private List<Capital> CAPITALS = new ArrayList<>();
+    private List<Capital> CAPITALS;
     private TextView game1, game2;
     private int num1, num2, localScore;
     private Thread thread;
@@ -37,6 +37,8 @@ public class CapitalsFragment extends Fragment implements Level, Runnable {
 
     private void initComponents(View v) {
         localScore = 0;
+
+        CAPITALS = new ArrayList<>();
         listCapitals();
 
         game1 = v.findViewById(R.id.game1);
@@ -127,7 +129,6 @@ public class CapitalsFragment extends Fragment implements Level, Runnable {
         CAPITALS.add(new Capital("Países Bajos", "Ámsterdam"));
         CAPITALS.add(new Capital("Suiza", "Berna"));
     }
-
 
     class Capital {
         private String country;

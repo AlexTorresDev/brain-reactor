@@ -22,7 +22,7 @@ import co.edu.udistrital.brainreactor.activities.GameActivity;
 
 public class ImagesFragment extends Fragment implements Level, Runnable {
 
-    private List<Image> IMAGES = new ArrayList<>();
+    private List<Image> IMAGES
     private ImageView[] imagesView;
     private int mCont, localScore;
     private Thread thread;
@@ -38,6 +38,8 @@ public class ImagesFragment extends Fragment implements Level, Runnable {
 
     private void initComponents(View v) {
         localScore = 0;
+
+        IMAGES = new ArrayList<>();
         listImages();
 
         mCont = 0;

@@ -24,7 +24,7 @@ import co.edu.udistrital.brainreactor.activities.GameActivity;
 
 public class OperationsFragment extends Fragment implements Level, Runnable {
 
-    private List<Operation> OPERATIONS = new ArrayList<>();
+    private List<Operation> OPERATIONS;
     private TextView game1, game2;
     private int result, localScore;
     private String operation, sign;
@@ -41,6 +41,8 @@ public class OperationsFragment extends Fragment implements Level, Runnable {
 
     private void initComponents(View v) {
         localScore = 0;
+
+        OPERATIONS = new ArrayList<>();
         listOperations();
 
         game1 = v.findViewById(R.id.game1);

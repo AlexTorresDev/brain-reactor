@@ -25,13 +25,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import co.edu.udistrital.brainreactor.levels.Level;
 import co.edu.udistrital.brainreactor.R;
 import co.edu.udistrital.brainreactor.animation.Animation;
 import co.edu.udistrital.brainreactor.levels.*;
 import co.edu.udistrital.brainreactor.view.SquareLayout;
 
-@SuppressLint("ClickableViewAccessibility")
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     private SquareLayout container;
@@ -141,12 +139,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 textPlayer1.setText(getFragment().getMessage());
                 textPlayer2.setText(getFragment().getMessage());
             }
-        }, 1200);
+        }, 900);
     }
 
     public void nextLevel() {
         level++;
-
 
         if (level < fragmentList.size()) {
             setFragment();
