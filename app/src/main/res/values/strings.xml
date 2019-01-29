@@ -7,10 +7,11 @@
     <string name="wrong">Wrong</string>
 
     <string name="operation_message">Is this mathematical operation correct?</string>
-    <string name="color_message">Touch this panel when the name and color match</string>
-    <string name="timer_message">Touch this panel when the timer reaches zero</string>
-    <string name="images_message">Touch this panel when there are 3 identical images</string>
-    <string name="background_message">Touch this panel when the color of background is %s</string>
+    <string name="color_message">Touch this panel when the name and color match.</string>
+    <string name="timer_message">Touch this panel when the timer reaches zero.</string>
+    <string name="images_message">Touch this panel when there are 3 identical images.</string>
+    <string name="capital_message">Touch this panel when the capital corresponds to the country indicated.</string>
+    <string name="capital_text">The capital of %s is %s</string>
 
     <string name="you_are_win">You are the WIN!</string>
     <string name="you_are_loser">You are the LOSER!</string>
@@ -25,6 +26,7 @@
     <string name="exit_message">If you leave the game you will lose all the progress</string>
     <string name="accept">Accept</string>
     <string name="cancel">Cancel</string>
+    <string name="about">About Us</string>
 
     <string-array name="colors_name">
         <item>BLUE</item>

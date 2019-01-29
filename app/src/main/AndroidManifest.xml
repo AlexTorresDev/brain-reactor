@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="co.edu.udistrital.brainreactor">
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher"
+        android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,8 +19,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.GameActivity" />
+        <activity android:name=".activities.ResultActivity" />
         <activity
-            android:name=".activities.ResultActivity" />
+            android:name=".AboutActivity"
+            android:label="@string/about"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

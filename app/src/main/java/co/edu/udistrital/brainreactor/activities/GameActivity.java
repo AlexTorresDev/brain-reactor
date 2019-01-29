@@ -118,11 +118,11 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
     private void setFragmentList() {
         fragmentList = new ArrayList<>();
-        //fragmentList.add(new OperationsFragment());
-        //fragmentList.add(new ColorsFragment());
-        //fragmentList.add(new TimerFragment());
-        //fragmentList.add(new ImagesFragment());
-        fragmentList.add(new BackgroundFragment());
+        fragmentList.add(new OperationsFragment());
+        fragmentList.add(new ColorsFragment());
+        fragmentList.add(new TimerFragment());
+        fragmentList.add(new ImagesFragment());
+        fragmentList.add(new CapitalsFragment());
 
         Collections.shuffle(fragmentList, new Random());
     }

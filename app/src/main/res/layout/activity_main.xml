@@ -17,9 +17,9 @@
         <co.edu.udistrital.brainreactor.view.SquareLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="80dp"
             android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -32,19 +32,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
             android:gravity="center_horizontal"
             android:text="@string/app_name"
             android:textAppearance="@android:style/TextAppearance.Material.Display2"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="90dp"
-            android:text="@string/created_by"
-            android:textAppearance="@android:style/TextAppearance.Material.Medium"
-            android:textColor="@android:color/white" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/play"
@@ -52,12 +45,28 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"
-            android:padding="20dp"
+            android:padding="16dp"
             android:text="@string/play_game"
             android:textColor="@android:color/white"
             android:textSize="16sp"
+            app:backgroundTint="@color/colorAccent"
             app:cornerRadius="50dp"
             app:icon="@drawable/ic_refresh" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/about"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:background="@color/colorTie"
+            android:padding="16dp"
+            android:text="@string/about"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:backgroundTint="@color/colorTie"
+            app:cornerRadius="50dp"
+            app:icon="@drawable/ic_info" />
 
     </LinearLayout>
 

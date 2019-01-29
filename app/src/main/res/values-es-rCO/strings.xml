@@ -9,10 +9,11 @@
     <string name="wrong">Error</string>
 
     <string name="operation_message">¿Es correcta esta operación matemática?</string>
-    <string name="color_message">Toca este panel cuando el nombre y el color coincidan</string>
+    <string name="color_message">Toca este panel cuando el nombre y el color coincidan.</string>
     <string name="timer_message">Toca este panel cuando el temporizador llegue a cero.</string>
-    <string name="images_message">Toca este panel cuando hayan 3 imágenes iguales</string>
-    <string name="background_message">Toca este panel cuando el color del fondo sea %s</string>
+    <string name="images_message">Toca este panel cuando hayan 3 imágenes iguales.</string>
+    <string name="capital_message">Toca este panel cuando la capital corresponda al país indicado.</string>
+    <string name="capital_text">La capital de %s es %s</string>
 
     <string name="you_are_win">¡Eres el GANADOR!</string>
     <string name="you_are_loser">¡Eres el PERDEDOR!</string>
@@ -26,6 +27,7 @@
     <string name="exit_message">Si abandonas la partida perderás todo el progreso</string>
     <string name="accept">Aceptar</string>
     <string name="cancel">Cancelar</string>
+    <string name="about">Acerca de</string>
 
     <string-array name="colors_name">
         <item>AZUL</item>

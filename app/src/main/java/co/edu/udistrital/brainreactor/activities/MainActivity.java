@@ -9,9 +9,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import co.edu.udistrital.brainreactor.AboutActivity;
 import co.edu.udistrital.brainreactor.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,16 +26,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button play = findViewById(R.id.play);
-        play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, GameActivity.class));
-            }
-        });
+        Button about = findViewById(R.id.about);
+
+        play.setOnClickListener(this);
+        about.setOnClickListener(this);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent;
+
+        switch (v.getId()) {
+            default:
+            case R.id.play:
+                intent = new Intent(MainActivity.this, GameActivity.class);
+                break;
+            case R.id.about:
+                intent = new Intent(MainActivity.this, AboutActivity.class);
+                break;
+        }
+
+        startActivity(intent);
     }
 }
