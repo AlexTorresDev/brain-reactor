@@ -63,8 +63,7 @@ public class TimerFragment extends Fragment implements Level {
     }
 
     private void countDown() {
-
-        countDownTimer = new CountDownTimer(11000, 1000) {
+        countDownTimer = new CountDownTimer(10000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 millis = millisUntilFinished;
@@ -91,13 +90,12 @@ public class TimerFragment extends Fragment implements Level {
                 countDown();
             }
         }.start();
-
     }
 
     @Override
     public void touchPanel(CardView player, TextView text, TextView score) {
-        int background = (millis / 1000 == 0) ? R.color.colorSuccess : R.color.colorWrong;
-        String message = (millis / 1000 == 0) ? getContext().getResources().getString(R.string.success) : getContext().getResources().getString(R.string.wrong);
+        int background = (millis < 1000) ? R.color.colorSuccess : R.color.colorWrong;
+        String message = (millis < 1000) ? getContext().getResources().getString(R.string.success) : getContext().getResources().getString(R.string.wrong);
         int s = Integer.parseInt(score.getText().toString());
 
         player.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), background));
