@@ -73,7 +73,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        if (Integer.parseInt(String.valueOf(scorePlayer1.getText())) > 0 || Integer.parseInt(String.valueOf(scorePlayer2.getText())) > 0) {
+        if (Integer.parseInt(String.valueOf(scorePlayer1.getText())) != 0 || Integer.parseInt(String.valueOf(scorePlayer2.getText())) != 0) {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.exit_title)
                     .setMessage(R.string.exit_message)
