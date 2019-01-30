@@ -12,7 +12,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
@@ -34,6 +34,7 @@
                     <ImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
+                        android:contentDescription="@string/app_name"
                         android:src="@drawable/ic_launcher" />
 
                     <LinearLayout
@@ -51,11 +52,11 @@
                             android:textAppearance="@android:style/TextAppearance.Large" />
 
                         <TextView
+                            android:id="@+id/app_version"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="26dp"
                             android:gravity="bottom"
-                            android:text="Version 1.0.0"
                             android:textAppearance="@android:style/TextAppearance.Small" />
 
                     </LinearLayout>
@@ -79,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:text="Licenses"
+                    android:text="@string/licenses"
                     android:textAppearance="@android:style/TextAppearance.Large" />
 
             </com.google.android.material.card.MaterialCardView>
@@ -104,14 +105,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="Nicolas Riveros"
+                        android:text="@string/nicolas_riveros"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Creator" />
+                        android:text="@string/creator" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -120,28 +121,31 @@
 
                         <Button
                             android:id="@+id/github1"
+                            style="?attr/buttonBarButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@null"
-                            android:text="Github"
+                            android:text="@string/github"
                             android:textColor="@color/colorAccent" />
 
                         <Button
                             android:id="@+id/fb1"
+                            style="?attr/buttonBarButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:background="@null"
-                            android:text="Facebook"
+                            android:text="@string/facebook"
                             android:textColor="@color/colorAccent" />
 
                         <Button
                             android:id="@+id/tw1"
+                            style="?attr/buttonBarButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@null"
-                            android:text="Twitter"
+                            android:text="@string/twitter"
                             android:textColor="@color/colorAccent" />
 
                     </LinearLayout>
@@ -170,14 +174,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="Alex Torres"
+                        android:text="@string/alex_torres"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Creator" />
+                        android:text="@string/creator" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -186,28 +190,31 @@
 
                         <Button
                             android:id="@+id/github2"
+                            style="?attr/buttonBarButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@null"
-                            android:text="Github"
+                            android:text="@string/github"
                             android:textColor="@color/colorAccent" />
 
                         <Button
                             android:id="@+id/fb2"
+                            style="?attr/buttonBarButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:background="@null"
-                            android:text="Facebook"
+                            android:text="@string/facebook"
                             android:textColor="@color/colorAccent" />
 
                         <Button
                             android:id="@+id/tw2"
+                            style="?attr/buttonBarButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@null"
-                            android:text="Twitter"
+                            android:text="@string/twitter"
                             android:textColor="@color/colorAccent" />
 
                     </LinearLayout>

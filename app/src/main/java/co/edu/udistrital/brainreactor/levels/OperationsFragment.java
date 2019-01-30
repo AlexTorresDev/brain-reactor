@@ -88,7 +88,7 @@ public class OperationsFragment extends Fragment implements Level, Runnable {
                 });
 
                 if (!thread.isPaused()) {
-                    Thread.sleep(4000);
+                    Thread.sleep(2000);
                 }
             }
         } catch (InterruptedException e) {

@@ -2,8 +2,8 @@
 <resources>
 
     <string name="app_name">BrainReactor</string>
-    <string name="created_by"><![CDATA[Creado por Nicolas & Alex]]></string>
     <string name="play_game">Jugar</string>
+    <string name="about">Acerca de</string>
 
     <string name="success">Hecho</string>
     <string name="wrong">Error</string>
@@ -27,7 +27,9 @@
     <string name="exit_message">Si abandonas la partida perderás todo el progreso</string>
     <string name="accept">Aceptar</string>
     <string name="cancel">Cancelar</string>
-    <string name="about">Acerca de</string>
+
+    <string name="licenses">Licencias</string>
+    <string name="version">Versión %s</string>
 
     <string-array name="colors_name">
         <item>AZUL</item>
@@ -37,4 +39,23 @@
         <item>PURPURA</item>
         <item>AMARILLO</item>
     </string-array>
+
+    <string-array name="countries">
+        <item>Colombia</item>
+        <item>Rusia</item>
+        <item>Alemania</item>
+        <item>China</item>
+        <item>Libano</item>
+        <item>Paises Bajos</item>
+    </string-array>
+
+    <string-array name="capitals">
+        <item>Bogotá</item>
+        <item>Moscú</item>
+        <item>Berlín</item>
+        <item>Pekín</item>
+        <item>Beirut</item>
+        <item>Ámsterdam</item>
+    </string-array>
+
 </resources>

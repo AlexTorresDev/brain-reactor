@@ -1,12 +1,18 @@
-package co.edu.udistrital.brainreactor;
+package co.edu.udistrital.brainreactor.activities;
 
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.app.Activity;
+import android.widget.TextView;
 
-import com.google.android.material.card.MaterialCardView;
+import androidx.appcompat.app.AppCompatActivity;
+import co.edu.udistrital.brainreactor.R;
+import de.psdev.licensesdialog.LicensesDialog;
 
-public class AboutActivity extends Activity implements View.OnClickListener {
+public class AboutActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +26,15 @@ public class AboutActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.github2).setOnClickListener(this);
         findViewById(R.id.fb2).setOnClickListener(this);
         findViewById(R.id.tw2).setOnClickListener(this);
+
+        TextView version = findViewById(R.id.app_version);
+
+        try {
+            PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+            version.setText(getResources().getString(R.string.version, pInfo.versionName));
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -28,15 +43,10 @@ public class AboutActivity extends Activity implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.licenses:
-                new AlertDialog.Builder(AboutActivity.this)
-                .setTitle(R.string.exit_title)
-                .setMessage(R.string.exit_message)
-                .setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();
+                new LicensesDialog.Builder(this)
+                        .setNotices(R.raw.notices)
+                        .build()
+                        .show();
                 break;
             case R.id.github1:
                 url = "https://github.com/NicolasRiveros";

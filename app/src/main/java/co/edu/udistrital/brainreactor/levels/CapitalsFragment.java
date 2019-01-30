@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -21,9 +19,9 @@ import co.edu.udistrital.brainreactor.activities.GameActivity;
 
 public class CapitalsFragment extends Fragment implements Level, Runnable {
 
-    private List<Capital> CAPITALS;
+    private String[] countries, capitals;
     private TextView game1, game2;
-    private int num1, num2, oldNum1, oldNum2, localScore;
+    private int num1, num2, localScore;
     private Thread thread;
 
     @Override
@@ -38,14 +36,11 @@ public class CapitalsFragment extends Fragment implements Level, Runnable {
     private void initComponents(View v) {
         localScore = 0;
 
-        CAPITALS = new ArrayList<>();
-        listCapitals();
-
         game1 = v.findViewById(R.id.game1);
         game2 = v.findViewById(R.id.game2);
 
-        oldNum1 = -1;
-        oldNum2 = -1;
+        countries = Objects.requireNonNull(getContext()).getResources().getStringArray(R.array.countries);
+        capitals = Objects.requireNonNull(getContext()).getResources().getStringArray(R.array.capitals);
 
         thread = new Thread(this);
     }
@@ -75,25 +70,20 @@ public class CapitalsFragment extends Fragment implements Level, Runnable {
                 Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        do {
-                            num1 = new Random().nextInt(COLORS.size());
-                        } while(num1 == oldNum1);
+                        if (!new Random().nextBoolean()) {
+                            num1 = new Random().nextInt(capitals.length);
+                            num2 = new Random().nextInt(capitals.length);
+                        } else {
+                            num1 = num2 = new Random().nextInt(capitals.length);
+                        }
 
-                        oldNum1 = num1;
-
-                        do {
-                            num2 = new Random().nextInt(COLORS.size());
-                        } while(num2 == oldNum2);
-
-                        oldNum2 = num2;
-
-                        game1.setText(getResources().getString(R.string.capital_text, CAPITALS.get(num1).getCountry(), CAPITALS.get(num2).getCapital()));
-                        game2.setText(getResources().getString(R.string.capital_text, CAPITALS.get(num1).getCountry(), CAPITALS.get(num2).getCapital()));
+                        game1.setText(getResources().getString(R.string.capital_text, countries[num1], capitals[num2]));
+                        game2.setText(getResources().getString(R.string.capital_text, countries[num1], capitals[num2]));
                     }
                 });
 
                 if (!thread.isPaused()) {
-                    Thread.sleep(3000);
+                    Thread.sleep(1500);
                 }
             }
         } catch (InterruptedException e) {
@@ -130,33 +120,4 @@ public class CapitalsFragment extends Fragment implements Level, Runnable {
         return R.string.capital_message;
     }
 
-    private void listCapitals() {
-        CAPITALS.add(new Capital("Colombia", "Bogota"));
-        CAPITALS.add(new Capital("EE.UU", "Washington D. C"));
-        CAPITALS.add(new Capital("Rusia", "Moscú"));
-        CAPITALS.add(new Capital("Alemania", "Berlín"));
-        CAPITALS.add(new Capital("China", "Pekín"));
-        CAPITALS.add(new Capital("Costa Rica", "San José"));
-        CAPITALS.add(new Capital("Líbano", "Beirut"));
-        CAPITALS.add(new Capital("Países Bajos", "Ámsterdam"));
-        CAPITALS.add(new Capital("Suiza", "Berna"));
-    }
-
-    class Capital {
-        private String country;
-        private String capital;
-
-        Capital(String country, String capital) {
-            this.country = country;
-            this.capital = capital;
-        }
-
-        String getCountry() {
-            return this.country;
-        }
-
-        String getCapital() {
-            return this.capital;
-        }
-    }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<notices>
+    <notice>
+        <name>Twemoji</name>
+        <url>https://twemoji.twitter.com/</url>
+        <copyright>Copyright (c) 2018 Twitter, Inc and other contributors</copyright>
+        <license>MIT License</license>
+    </notice>
+    <notice>
+        <name>LicensesDialog</name>
+        <url>http://psdev.de/LicensesDialog</url>
+        <copyright>Copyright 2013 Philip Schiffer</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Rhino script engine</name>
+        <url>https://github.com/APISENSE/rhino-android</url>
+        <copyright/>
+        <license>GNU General Public License 2.0</license>
+    </notice>
+    <notice>
+        <name>Android ViewPagerIndicator</name>
+        <url>https://material.io/develop/android/</url>
+        <copyright/>
+        <license>Apache Software License 2.0</license>
+    </notice>
+</notices>

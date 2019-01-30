@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -16,16 +14,15 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import co.edu.udistrital.brainreactor.Colors;
 import co.edu.udistrital.brainreactor.R;
 import co.edu.udistrital.brainreactor.Thread;
 import co.edu.udistrital.brainreactor.activities.GameActivity;
 
 public class ColorsFragment extends Fragment implements Level, Runnable {
 
-    private List<Colors> COLORS;
+    private String[] colors, names;
     private TextView game1, game2;
-    private int num1, num2, oldNum1, oldNum2, localScore;
+    private int num1, num2, localScore;
     private Thread thread;
 
     @Override
@@ -40,14 +37,11 @@ public class ColorsFragment extends Fragment implements Level, Runnable {
     private void initComponents(View v) {
         localScore = 0;
 
-        COLORS = new ArrayList<>();
-        listColors();
-
         game1 = v.findViewById(R.id.game1);
         game2 = v.findViewById(R.id.game2);
 
-        oldNum1 = -1;
-        oldNum2 = -1;
+        colors = Objects.requireNonNull(getContext()).getResources().getStringArray(R.array.colors);
+        names = Objects.requireNonNull(getContext()).getResources().getStringArray(R.array.colors_name);
 
         thread = new Thread(this);
     }
@@ -77,28 +71,23 @@ public class ColorsFragment extends Fragment implements Level, Runnable {
                 Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        do {
-                            num1 = new Random().nextInt(COLORS.size());
-                        } while(num1 == oldNum1);
+                        if (!new Random().nextBoolean()) {
+                            num1 = new Random().nextInt(names.length);
+                            num2 = new Random().nextInt(names.length);
+                        } else  {
+                            num1 = num2 = new Random().nextInt(names.length);
+                        }
 
-                        oldNum1 = num1;
+                        game1.setText(names[num1]);
+                        game1.setTextColor(Color.parseColor(colors[num2]));
 
-                        do {
-                            num2 = new Random().nextInt(COLORS.size());
-                        } while(num2 == oldNum2);
-
-                        oldNum2 = num2;
-
-                        game1.setText(COLORS.get(num1).getName());
-                        game1.setTextColor(Color.parseColor(COLORS.get(num2).getColor()));
-
-                        game2.setText(COLORS.get(num1).getName());
-                        game2.setTextColor(Color.parseColor(COLORS.get(num2).getColor()));
+                        game2.setText(names[num1]);
+                        game2.setTextColor(Color.parseColor(colors[num2]));
                     }
                 });
 
                 if (!thread.isPaused()) {
-                    Thread.sleep(2000);
+                    Thread.sleep(900);
                 }
             }
         } catch (InterruptedException e) {
@@ -135,32 +124,4 @@ public class ColorsFragment extends Fragment implements Level, Runnable {
         return R.string.color_message;
     }
 
-    private void listColors() {
-        int length = Objects.requireNonNull(getContext()).getResources().getStringArray(R.array.colors).length;
-
-        for (int i = 0; i < length; i++) {
-            COLORS.add(new Colors(
-                Objects.requireNonNull(getContext()).getResources().getStringArray(R.array.colors_name)[i],
-                Objects.requireNonNull(getContext()).getResources().getStringArray(R.array.colors)[i]
-            ));
-        }
-    }
-
-    class Colors {
-    
-        private String name, color;
-    
-        private Colors(String name, String color) {
-            this.name = name;
-            this.color = color;
-        }
-    
-        public String getName() {
-            return name;
-        }
-    
-        public String getColor() {
-            return color;
-        }
-    }
 }

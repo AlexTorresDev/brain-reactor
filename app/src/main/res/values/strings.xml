@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">BrainReactor</string>
-    <string name="created_by"><![CDATA[Created by Nicolas & Alex]]></string>
+    <string name="app_name">Brain Reactor</string>
     <string name="play_game">Play Game</string>
+    <string name="about">About Us</string>
 
     <string name="success">Success</string>
     <string name="wrong">Wrong</string>
@@ -26,7 +26,15 @@
     <string name="exit_message">If you leave the game you will lose all the progress</string>
     <string name="accept">Accept</string>
     <string name="cancel">Cancel</string>
-    <string name="about">About Us</string>
+
+    <string name="licenses">Licenses</string>
+    <string name="nicolas_riveros" translatable="false">Nicolas Riveros</string>
+    <string name="creator" translatable="false">Creator</string>
+    <string name="github" translatable="false">Github</string>
+    <string name="facebook" translatable="false">Facebook</string>
+    <string name="twitter" translatable="false">Twitter</string>
+    <string name="alex_torres" translatable="false">Alex Torres</string>
+    <string name="version">Version %s</string>
 
     <string-array name="colors_name">
         <item>BLUE</item>
@@ -36,6 +44,7 @@
         <item>PURPLE</item>
         <item>YELLOW</item>
     </string-array>
+
     <string-array name="colors">
         <item>#2196F3</item>
         <item>#4CAF50</item>
@@ -44,4 +53,23 @@
         <item>#9C27B0</item>
         <item>#FFEB3B</item>
     </string-array>
+
+    <string-array name="countries">
+        <item>Colombia</item>
+        <item>Russia</item>
+        <item>Germany</item>
+        <item>China</item>
+        <item>Lebanon</item>
+        <item>Netherlands</item>
+    </string-array>
+
+    <string-array name="capitals">
+        <item>Bogota</item>
+        <item>Moscow</item>
+        <item>Berlin</item>
+        <item>Beijing</item>
+        <item>Beirut</item>
+        <item>Amsterdam</item>
+    </string-array>
+
 </resources>
