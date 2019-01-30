@@ -100,7 +100,7 @@ public class ImagesFragment extends Fragment implements Level, Runnable {
                 });
 
                 if (!thread.isPaused()) {
-                    Thread.sleep(700);
+                    Thread.sleep(900);
                 }
             }
         } catch (InterruptedException e) {
@@ -133,13 +133,12 @@ public class ImagesFragment extends Fragment implements Level, Runnable {
             localScore++;
             s++;
         } else {
-            localScore--;
             s--;
         }
 
         score.setText(String.valueOf(s));
 
-        if (localScore == 3) {
+        if (localScore == 2) {
             ((GameActivity) Objects.requireNonNull(getActivity())).nextLevel();
         } else {
             resetContainers();

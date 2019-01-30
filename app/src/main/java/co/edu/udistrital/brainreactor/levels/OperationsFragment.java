@@ -109,13 +109,12 @@ public class OperationsFragment extends Fragment implements Level, Runnable {
             localScore++;
             s++;
         } else {
-            localScore--;
             s--;
         }
 
         score.setText(String.valueOf(s));
 
-        if (localScore == 3) {
+        if (localScore == 2) {
             ((GameActivity) Objects.requireNonNull(getActivity())).nextLevel();
         }
     }

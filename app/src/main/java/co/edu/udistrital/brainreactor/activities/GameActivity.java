@@ -159,8 +159,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 player2.setBackgroundColor(ContextCompat.getColor(GameActivity.this, R.color.colorPanel));
                 textPlayer1.setText(getFragment().getMessage());
                 textPlayer2.setText(getFragment().getMessage());
+                player1.setEnabled(true);
+                player2.setEnabled(true);
             }
-        }, 400);
+        }, 1500);
     }
 
     public void nextLevel() {
@@ -181,9 +183,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.player1:
+                player1.setEnabled(false);
+                player2.setEnabled(false);
                 getFragment().touchPanel(player1, textPlayer1, scorePlayer1);
                 break;
             case R.id.player2:
+                player1.setEnabled(false);
+                player2.setEnabled(false);
                 getFragment().touchPanel(player2, textPlayer2, scorePlayer2);
                 break;
         }

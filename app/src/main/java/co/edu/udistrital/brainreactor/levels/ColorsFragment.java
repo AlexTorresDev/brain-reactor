@@ -87,7 +87,7 @@ public class ColorsFragment extends Fragment implements Level, Runnable {
                 });
 
                 if (!thread.isPaused()) {
-                    Thread.sleep(900);
+                    Thread.sleep(1500);
                 }
             }
         } catch (InterruptedException e) {
@@ -108,13 +108,12 @@ public class ColorsFragment extends Fragment implements Level, Runnable {
             localScore++;
             s++;
         } else {
-            localScore--;
             s--;
         }
 
         score.setText(String.valueOf(s));
 
-        if (localScore == 3) {
+        if (localScore == 2) {
             ((GameActivity) Objects.requireNonNull(getActivity())).nextLevel();
         }
     }
